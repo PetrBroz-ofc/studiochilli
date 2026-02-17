@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Chilli</title>
+
+    <style>
+        /* ====== ZÁKLAD ====== */
+
+        :root {
+            --accent: #e67e5f;
+            --accent-dark: #df7252;
+            --bg: #fdf8f5;
+            --text: #2d2d2d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ====== HEADER ====== */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(253,248,245,0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+        .logo span {
+            color: var(--accent);
+        }
+
+        .logo img {
+    height: 60px;
+    width: auto;
+    display: block;
+}
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+nav a {
+    position: relative;
+    font-size: 14px;
+    color: rgba(0,0,0,0.65);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 6px 0;
+    transition: color 0.3s ease;
+}
+
+/* underline */
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: var(--accent); /* tvoje hlavní barva */
+    transition: width 0.3s ease;
+}
+
+/* hover */
+nav a:hover {
+    color: var(--accent);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+        .btn-main {
+            padding: 12px 24px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        /* ====== SEKCE (prázdné zatím) ====== */
+
+        section {
+            padding: 120px 8%;
+            min-height: 60vh;
+        }
+
+    /* ===== HERO SEKCE ===== */
+
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 8%;
+  color: white;
+  overflow: hidden; /* ať se nic nevylije */
+}
+
+/* fotka jako vrstva + "zesednutí" přes filter */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("https://d375139ucebi94.cloudfront.net/region2/pl/292366/biz_photo/46fe41c4d2ae46fdbd3da947e23ec2-nails-studio-biz-photo-c82801765471488fb6523031669147-booksy.jpeg") center/cover no-repeat;
+  filter: grayscale(35%) saturate(70%) brightness(0.72) contrast(1.08);
+  transform: scale(1.03); /* proti bílým okrajům po filtru */
+  z-index: 0;
+}
+
+/* overlay (tón + čitelnost) */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.62), rgba(0,0,0,0.28));
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+    letter-spacing: 4px;
+    font-size: 12px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.hero h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(54px, 6.5vw, 100px);
+    line-height: 1.05;
+    margin-bottom: 28px;
+    font-weight: 400; /* normální, ne tučné */
+}
+
+.hero h1 span {
+    font-style: italic;
+    font-weight: 400;
+}
+
+.hero-text {
+    font-size: 18px;
+    margin-bottom: 35px;
+    max-width: 520px;
+    opacity: 0.9;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background: var(--accent);
+    padding: 16px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: var(--accent-dark);
+}
+
+.btn-outline {
+    padding: 16px 30px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.5);
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-outline:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* ===================================================== */
+/* 2. SLUŽBY                                              */
+/* ===================================================== */
+
+.services{
+  padding: 110px 8%;
+  background: #f6f1ee; /* světle “šedé/béžové” jako na screenu */
+}
+
+.services-head{
+  text-align:center;
+  max-width: 980px;
+  margin: 0 auto 60px;
+}
+
+.section-kicker{
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.services h2{
+  font-family: Georgia, serif;
+  font-size: clamp(38px, 4.5vw, 62px);
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.services-lead{
+  color: rgba(0,0,0,.55);
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.services-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card{
+  background: rgba(255,255,255,.45);
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 26px;
+  padding: 34px 30px;
+  box-shadow: 0 14px 34px rgba(0,0,0,.05);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.service-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0,0,0,.08);
+}
+
+.service-icon{
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(230,126,95,.12);
+  border: 1px solid rgba(230,126,95,.18);
+  margin-bottom: 22px;
+}
+
+.service-icon svg{
+  width: 26px;
+  height: 26px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.service-card h3{
+  font-family: Georgia, serif;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.service-card p{
+  color: rgba(0,0,0,.55);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+@media (max-width: 980px){
+  .services-grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px){
+  .services{ padding: 90px 7%; }
+  .services-grid{ grid-template-columns: 1fr; }
+}
+
+/* ===================================================== */
+/* 3. O NÁS                                               */
+/* ===================================================== */
+
+.about{
+  padding: 120px 8%;
+  background: #fff7f3; /* světlejší než služby – jako na screenu */
+}
+
+.about-head{
+  text-align:center;
+  max-width: 980px;
+  margin: 0 auto 70px;
+}
+
+.about h2{
+  font-family: Georgia, serif;
+  font-size: clamp(42px, 5vw, 70px);
+  line-height: 1.02;
+  margin: 18px 0 20px;
+}
+
+.about-text{
+  max-width: 840px;
+  margin: 0 auto;
+  display:flex;
+  flex-direction:column;
+  gap: 18px;
+}
+
+.about-text p{
+  color: rgba(0,0,0,.55);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* hodnoty dole */
+.about-values{
+  max-width: 1200px;
+  margin: 0 auto;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 36px;
+  align-items:start;
+}
+
+.value{
+  text-align:center;
+}
+
+.value-icon{
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(230,126,95,.12);
+  border: 1px solid rgba(230,126,95,.18);
+}
+
+.value-icon svg{
+  width: 26px;
+  height: 26px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.value h3{
+  font-family: Georgia, serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.value p{
+  color: rgba(0,0,0,.55);
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 240px;
+  margin: 0 auto;
+}
+
+@media (max-width: 980px){
+  .about-values{ grid-template-columns: 1fr 1fr; gap: 26px; }
+}
+@media (max-width: 560px){
+  .about{ padding: 96px 7%; }
+  .about-values{ grid-template-columns: 1fr; }
+}
+
+/* ===================================================== */
+/* GALERIE – tabs + grid + lightbox                       */
+/* ===================================================== */
+
+.gallery{
+  padding: 120px 8%;
+  background: #f6f1ee;
+  text-align: center;
+}
+
+.gallery-head{
+  max-width: 920px;
+  margin: 0 auto 44px;
+}
+
+.gallery h2{
+  font-family: Georgia, serif;
+  font-size: clamp(40px, 5vw, 70px);
+  line-height: 1.05;
+  margin: 18px 0 14px;
+}
+
+.gallery-lead{
+  color: rgba(0,0,0,.55);
+  font-size: 15px;
+  line-height: 1.85;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* Tabs */
+.gallery-tabs{
+  max-width: 1200px;
+  margin: 0 auto 34px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tab{
+  appearance: none;
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.55);
+  color: rgba(0,0,0,.68);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: .18s ease;
+  box-shadow: 0 10px 24px rgba(0,0,0,.04);
+}
+
+.tab:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.70);
+}
+
+.tab.is-active{
+  background: rgba(230,126,95,.14);
+  border-color: rgba(230,126,95,.26);
+  color: rgba(0,0,0,.78);
+  box-shadow: 0 14px 34px rgba(230,126,95,.12);
+}
+
+/* Grid */
+.gallery-grid{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  text-align: left;
+}
+
+@media (max-width: 1100px){
+  .gallery-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 820px){
+  .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px){
+  .gallery-grid{ grid-template-columns: 1fr; }
+}
+.g-item{
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.06);
+  background: rgba(255,255,255,.40);
+  box-shadow: 0 16px 40px rgba(0,0,0,.06);
+  cursor: pointer;
+  transform: translateZ(0);
+  transition: transform .18s ease, box-shadow .18s ease;
+  height: 220px; /* jednotná karta */
+}
+
+@media (max-width: 520px){
+  .g-item{ height: 240px; }
+}
+.g-item:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 22px 54px rgba(0,0,0,.10);
+}
+
+.g-item img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: saturate(1.02);
+}
+
+.g-overlay{
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 14px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+  color: rgba(74, 72, 72, 0.92);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .01em;
+}
+
+.g-badge{
+  display:inline-block;
+  background: rgba(230,126,95,.92);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.g-col-4{ grid-column: span 6; height: 240px; }
+  .g-col-3{ grid-column: span 6; height: 240px; }
+}
+@media (max-width: 640px){
+  .gallery{ padding: 100px 7%; }
+  .g-col-3, .g-col-4, .g-col-6, .g-col-8{ grid-column: span 12; height: 260px; }
+}
+
+/* Lightbox */
+.lightbox{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 5000;
+}
+.lightbox.open{ display:block; }
+
+.lightbox-backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.65);
+}
+
+.lightbox-panel{
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(980px, calc(100% - 32px));
+  height: min(680px, calc(100% - 32px));
+  border-radius: 24px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 30px 90px rgba(0,0,0,.55);
+}
+
+.lightbox-panel img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #111;
+}
+
+.lightbox-close{
+  position:absolute;
+  top: 10px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.lightbox-nav{
+  position:absolute;
+  inset: auto 14px 14px 14px;
+  display:flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.lb-btn{
+  pointer-events: auto;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  font-size: 34px;
+  cursor: pointer;
+}
+.lb-btn:hover{ background: rgba(255,255,255,.16); }
+
+/* ===================================================== */
+/* 4. RECENZE                                             */
+/* ===================================================== */
+
+.reviews{
+  padding: 120px 8%;
+  background: #f6f1ee;
+  text-align:center;
+}
+
+.reviews-head{
+  max-width: 900px;
+  margin: 0 auto 70px;
+}
+
+.reviews h2{
+  font-family: Georgia, serif;
+  font-size: clamp(40px, 5vw, 70px);
+  line-height: 1.05;
+  margin: 18px 0 18px;
+}
+
+.reviews-stars{
+  color: var(--accent);
+  font-size: 26px;
+  letter-spacing: 6px;
+  margin-bottom: 12px;
+}
+
+.reviews-sub{
+  color: rgba(0,0,0,.55);
+  font-size: 15px;
+}
+
+.reviews-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.review-card{
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 28px;
+  padding: 36px 32px;
+  text-align:left;
+  box-shadow: 0 18px 40px rgba(0,0,0,.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.review-card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 26px 60px rgba(0,0,0,.10);
+}
+
+.review-stars{
+  color: var(--accent);
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+
+.review-text{
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(0,0,0,.75);
+  margin-bottom: 26px;
+}
+
+.review-author{
+  font-weight: 600;
+  font-size: 14px;
+  color: rgba(0,0,0,.65);
+}
+
+@media (max-width: 980px){
+  .reviews-grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px){
+  .reviews{ padding: 100px 7%; }
+  .reviews-grid{ grid-template-columns: 1fr; }
+}
+
+/* ===================================================== */
+/* 5. KONTAKT                                             */
+/* ===================================================== */
+
+.contact{
+  padding: 120px 8%;
+  background: #fff7f3;
+}
+
+.contact-head{
+  text-align:center;
+  max-width: 900px;
+  margin: 0 auto 70px;
+}
+
+.contact h2{
+  font-family: Georgia, serif;
+  font-size: clamp(44px, 5vw, 72px);
+  line-height: 1.05;
+  margin: 18px 0 14px;
+}
+
+.contact-lead{
+  color: rgba(0,0,0,.55);
+  font-size: 15px;
+  line-height: 1.85;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.contact-grid{
+  max-width: 1200px;
+  margin: 0 auto;
+  display:grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items:start;
+}
+
+.contact-left{
+  display:flex;
+  flex-direction:column;
+  gap: 22px;
+}
+
+.info-card{
+  display:flex;
+  gap: 18px;
+  align-items:flex-start;
+}
+
+.info-ic{
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(230,126,95,.12);
+  border: 1px solid rgba(230,126,95,.18);
+  flex: 0 0 auto;
+}
+
+.info-ic svg{
+  width: 26px;
+  height: 26px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.info-txt h3{
+  font-family: Georgia, serif;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.info-txt p{
+  color: rgba(0,0,0,.55);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.info-txt .muted{
+  margin-top: -2px;
+}
+
+.info-txt .phone{
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.info-txt .phone a{
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.info-txt .small{
+  font-size: 12px;
+  color: rgba(0,0,0,.45);
+  margin-top: 8px;
+}
+
+.hours{
+  display:flex;
+  flex-direction:column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.hours-row{
+  display:flex;
+  justify-content:space-between;
+  gap: 18px;
+  font-size: 14px;
+  color: rgba(0,0,0,.55);
+}
+
+.hours-row b{
+  color: rgba(0,0,0,.75);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* mapa */
+.map-box{
+  border-radius: 28px;
+  overflow:hidden;
+  box-shadow: 0 18px 48px rgba(0,0,0,.10);
+  border: 1px solid rgba(0,0,0,.06);
+  background: rgba(255,255,255,.6);
+  height: 480px;
+}
+
+.map-box iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+
+@media (max-width: 980px){
+  .contact-grid{
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .map-box{ height: 420px; }
+}
+@media (max-width: 620px){
+  .contact{ padding: 100px 7%; }
+  .hours-row{ flex-direction:column; gap: 2px; }
+}
+
+nav a.active {
+    color: var(--accent);
+}
+
+nav a.active::after {
+    width: 100%;
+}
+
+/* ===================================================== */
+/* FOOTER                                                 */
+/* ===================================================== */
+
+.site-footer{
+  background: #2f2f2f;
+  color: rgba(255,255,255,.82);
+  margin-top: 0;
+}
+
+.footer-inner{
+  padding: 70px 8% 50px;
+}
+
+.footer-grid{
+  max-width: 1200px;
+  margin: 0 auto;
+  display:grid;
+  grid-template-columns: 1.1fr 0.9fr 1.1fr 0.9fr;
+  gap: 48px;
+}
+
+.site-footer h3{
+  color: var(--accent);
+  font-family: Georgia, serif;
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+.footer-text{
+  line-height: 1.9;
+  color: rgba(255,255,255,.72);
+  font-size: 14px;
+  max-width: 360px;
+}
+
+.footer-social{
+  display:flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.social-btn{
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: .18s ease;
+  text-decoration: none;
+}
+
+.social-btn:hover{
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.14);
+  border-color: rgba(255,255,255,.18);
+}
+
+.social-btn svg{
+  width: 18px;
+  height: 18px;
+  fill: rgba(255,255,255,.85);
+}
+
+.footer-links{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap: 12px;
+}
+
+.footer-links a{
+  color: rgba(255,255,255,.70);
+  text-decoration:none;
+  font-size: 14px;
+  transition: .18s ease;
+}
+
+.footer-links a:hover{
+  color: var(--accent);
+}
+
+.footer-contact{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap: 14px;
+}
+
+.footer-contact li{
+  display:flex;
+  gap: 12px;
+  align-items:flex-start;
+  color: rgba(255,255,255,.70);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.footer-contact a{
+  color: rgba(255,255,255,.78);
+  text-decoration:none;
+}
+
+.footer-contact a:hover{
+  color: var(--accent);
+}
+
+.footer-contact .ic{
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.footer-contact .ic svg{
+  width: 16px;
+  height: 16px;
+  stroke: rgba(255,255,255,.80);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footer-hours{
+  display:flex;
+  flex-direction:column;
+  gap: 12px;
+}
+
+.footer-hours .hr{
+  display:flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: rgba(255,255,255,.70);
+  font-size: 14px;
+}
+
+.footer-hours .hr b{
+  color: rgba(255,255,255,.85);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* bottom bar */
+.footer-bottom{
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 18px 8%;
+}
+
+.footer-bottom-inner{
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+  color: rgba(255,255,255,.55);
+  font-size: 12.5px;
+}
+
+/* responsive */
+@media (max-width: 980px){
+  .footer-grid{
+    grid-template-columns: 1fr 1fr;
+    gap: 34px;
+  }
+}
+@media (max-width: 640px){
+  .footer-grid{
+    grid-template-columns: 1fr;
+  }
+  .footer-hours .hr{
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* Jemné oddělení sekcí */
+section {
+  position: relative;
+}
+
+section:not(:last-of-type)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 8%;
+  width: 84%;
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+}
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+
+   <!-- Header / Navigace -->
+<header>
+  <div class="logo">
+  <a href="#top">
+    <img src="LOGO_studioCHILLI2.png" alt="Studio Chilli logo">
+  </a>
+</div>
+
+  <nav>
+    <a href="#top">Domů</a>
+    <a href="#sluzby">Služby</a>
+    <a href="#onas">O nás</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#recenze">Recenze</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+
+  <a href="tel:724571374" class="btn-main">Objednat se</a>
+</header>
+
+
+    <!-- ===================================================== -->
+<!-- 1. HERO SEKCE                                        -->
+<!-- ===================================================== -->
+
+<section id="hero" class="hero">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <p class="hero-eyebrow">STUDIO CHILLI</p>
+
+        <h1>
+            Zahřeje. <br> 
+            Povzbudí.<br>
+            <span>Rozzáří. Pohladí.</span>
+        </h1>
+
+        <p class="hero-text">
+            Vítejte ve Studiu Chilli, kde věříme, že krása není jen o vzhledu,
+            ale hlavně o pocitu.
+        </p>
+
+        <div class="hero-buttons">
+  <a href="tel:724571374" class="btn-primary">Objednat se</a>
+  <a href="#kontakt" class="btn-outline">Kde nás najdete</a>
+</div> 
+    </div>
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 2. SLUŽBY                                             -->
+<!-- ===================================================== -->
+<section id="sluzby" class="services">
+  <div class="services-head">
+    <p class="section-kicker">NAŠE SLUŽBY</p>
+    <h2>Nabízíme péči pro ženy i muže</h2>
+    <p class="services-lead">
+      Každé ošetření přizpůsobujeme individuálně vašim potřebám, typu pleti či nehtů i aktuální náladě.
+      Nepracujeme „na počet“, ale na kvalitu. Dopřejeme vám čas, který patří jen vám.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <article class="service-card">
+      <div class="service-icon">
+        <!-- ruka -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 13V6a1 1 0 0 1 2 0v6" />
+          <path d="M10 12V5a1 1 0 0 1 2 0v7" />
+          <path d="M12 12V6a1 1 0 0 1 2 0v7" />
+          <path d="M14 13V8a1 1 0 0 1 2 0v7" />
+          <path d="M6 13c0 5 3 8 6 8s6-3 6-8v-1" />
+        </svg>
+      </div>
+      <h3>Manikúra</h3>
+      <p>Úprava přírodních nehtů, klasická i přístrojová manikúra s důrazem na čistotu provedení.</p>
+    </article>
+
+    <article class="service-card">
+      <div class="service-icon">
+        <!-- hvězda -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2l1.5 6.2L20 10l-6.5 1.8L12 18l-1.5-6.2L4 10l6.5-1.8L12 2z"/>
+          <path d="M19 4l.6 2.2L22 7l-2.4.8L19 10l-.6-2.2L16 7l2.4-.8L19 4z"/>
+        </svg>
+      </div>
+      <h3>Modeláž nehtů</h3>
+      <p>Gelové a akrylové nehty, doplňování, opravy i nail art podle vašich přání.</p>
+    </article>
+
+    <article class="service-card">
+      <div class="service-icon">
+        <!-- noha -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 3c3 2 5 5 5 9 0 4-2 7-6 7-2 0-4-1-4-3 0-2 2-3 4-3 3 0 6-2 6-6" />
+          <path d="M16 13c1 0 2 1 2 2" />
+          <path d="M18 11c1 0 2 1 2 2" />
+        </svg>
+      </div>
+      <h3>Pedikúra</h3>
+      <p>Komplexní péče o chodidla zaměřená na vzhled i zdraví vašich nohou.</p>
+    </article>
+
+    <article class="service-card">
+      <div class="service-icon">
+        <!-- srdce -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-4 5 5 0 0 1 9 4c-2 4.5-9 9-9 9z"/>
+        </svg>
+      </div>
+      <h3>Masáže</h3>
+      <p>Relaxační i sportovní masáže pro uvolnění těla a regeneraci energie.</p>
+    </article>
+
+    <article class="service-card">
+      <div class="service-icon">
+        <!-- obličej/květ -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 12c2.5-2.5 4-4.5 4-6a4 4 0 0 0-8 0c0 1.5 1.5 3.5 4 6z"/>
+          <path d="M6 14c2.5 0 4.5.8 6 2 1.5-1.2 3.5-2 6-2"/>
+          <path d="M8 21c1-2 2.5-3 4-3s3 .9 4 3"/>
+        </svg>
+      </div>
+      <h3>Kosmetická ošetření</h3>
+      <p>Profesionální péče o pleť přizpůsobená vašemu typu a potřebám pokožky.</p>
+    </article>
+
+    <article class="service-card">
+      <div class="service-icon">
+        <!-- blesk -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/>
+        </svg>
+      </div>
+      <h3>Epilace</h3>
+      <p>Šetrná a účinná epilace pro hladkou a krásnou pokožku.</p>
+    </article>
+  </div>
+</section>
+
+   <!-- ===================================================== -->
+<!-- 3. O NÁS                                              -->
+<!-- ===================================================== -->
+<section id="onas" class="about">
+  <div class="about-head">
+    <p class="section-kicker">O NÁS</p>
+    <h2>Malé studio s velkým srdcem</h2>
+
+    <div class="about-text">
+      <p>
+        Jsme malé kosmetické studio s velkým důrazem na osobní a individuální přístup. Věříme, že skutečná krása vzniká tam,
+        kde se cítíte dobře – v klidu, bez spěchu a s vědomím, že je o vás postaráno s maximální péčí.
+      </p>
+      <p>
+        Zakládáme si na přátelské atmosféře, pečlivosti, profesionalitě a důrazu na hygienu. Chceme, abyste se k nám vraceli nejen kvůli výsledku,
+        ale i kvůli pocitu. Největší odměnou jsou pro nás spokojení zákazníci a jejich úsměv na rtech při odchodu.
+      </p>
+    </div>
+  </div>
+
+  <div class="about-values">
+    <article class="value">
+      <div class="value-icon">
+        <!-- plamen -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2s4 4 4 8a4 4 0 0 1-8 0c0-2 1-4 2-6" />
+          <path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-6 0 4-2 6-4 6s-4-2-4-6c-1 1-3 3-3 6a7 7 0 0 0 7 7z" />
+        </svg>
+      </div>
+      <h3>Zahřeje atmosférou</h3>
+      <p>Přátelské prostředí, kde se cítíte jako doma.</p>
+    </article>
+
+    <article class="value">
+      <div class="value-icon">
+        <!-- hvězda -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2l1.5 6.2L20 10l-6.5 1.8L12 18l-1.5-6.2L4 10l6.5-1.8L12 2z"/>
+          <path d="M19 4l.6 2.2L22 7l-2.4.8L19 10l-.6-2.2L16 7l2.4-.8L19 4z"/>
+        </svg>
+      </div>
+      <h3>Povzbudí energií</h3>
+      <p>Chilli je symbolem vitality, zdraví a přirozené síly.</p>
+    </article>
+
+    <article class="value">
+      <div class="value-icon">
+        <!-- slunce -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.2"/>
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+          <path d="M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1"/>
+          <path d="M19.8 4.2l-2.1 2.1M6.3 17.7l-2.1 2.1"/>
+        </svg>
+      </div>
+      <h3>Rozzáří vaši krásu</h3>
+      <p>Profesionální péče, která vás rozzáří zevnitř i navenek.</p>
+    </article>
+
+    <article class="value">
+      <div class="value-icon">
+        <!-- srdce -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-4 5 5 0 0 1 9 4c-2 4.5-9 9-9 9z"/>
+        </svg>
+      </div>
+      <h3>Pohladí na těle i na duši</h3>
+      <p>Pocit svěžesti, který si s sebou odnesete domů.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- //* GALERIE NAVÍC //                                  -->
+<!-- ===================================================== -->
+<section id="galerie" class="gallery">
+  <div class="gallery-head">
+    <p class="section-kicker">GALERIE</p>
+    <h2>Ukázky naší práce</h2>
+    <p class="gallery-lead">
+      Vyberte kategorii a prohlédněte si reálné ukázky. Fotky si pak snadno vyměníte za vlastní.
+    </p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="gallery-tabs" role="tablist" aria-label="Kategorie galerie">
+    <button class="tab is-active" role="tab" aria-selected="true" data-tab="nehty">Nehty</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="pedikura">Pedikúra</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="kosmetika">Kosmetika</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="masaze">Masáže</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="epilace">Epilace</button>
+  </div>
+
+  <!-- Grid -->
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- JS sem vloží fotky -->
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-close></div>
+    <div class="lightbox-panel" role="dialog" aria-label="Náhled fotografie">
+      <button class="lightbox-close" type="button" data-close aria-label="Zavřít">×</button>
+      <img id="lightboxImg" alt="Náhled" />
+      <div class="lightbox-nav">
+        <button class="lb-btn" type="button" id="lbPrev" aria-label="Předchozí">‹</button>
+        <button class="lb-btn" type="button" id="lbNext" aria-label="Další">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- ===================================================== -->
+<!-- 4. RECENZE                                            -->
+<!-- ===================================================== -->
+<section id="recenze" class="reviews">
+  <div class="reviews-head">
+    <p class="section-kicker">RECENZE</p>
+    <h2>Co říkají naši zákazníci</h2>
+
+    <div class="reviews-stars">
+      ★ ★ ★ ★ ★
+    </div>
+
+    <p class="reviews-sub">
+      Spokojení zákazníci a jejich úsměv jsou naší největší odměnou
+    </p>
+  </div>
+
+  <div class="reviews-grid">
+    <article class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        „Skvělá práce, vždy odcházím spokojená. Nehty vydrží dlouho
+        a prostředí je příjemné a klidné.“
+      </p>
+      <p class="review-author">Petra K.</p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        „Profesionální přístup a precizní provedení.
+        Studio Chilli je moje jednička v Brně!“
+      </p>
+      <p class="review-author">Jana M.</p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        „Konečně jsem našla studio, kde se cítím jako doma.
+        Osobní přístup a krásné výsledky pokaždé.“
+      </p>
+      <p class="review-author">Lucie V.</p>
+    </article>
+  </div>
+</section>
+
+
+  <!-- ===================================================== -->
+<!-- 5. KONTAKT                                            -->
+<!-- ===================================================== -->
+<section id="kontakt" class="contact">
+  <div class="contact-head">
+    <p class="section-kicker">KONTAKT</p>
+    <h2>Objednejte se</h2>
+    <p class="contact-lead">
+      Zastavte se. Uvolněte se. Dopřejte si chvíli, která bude patřit jen vám.
+      Těšíme se na vaši návštěvu ve Studiu Chilli. Všechny zájemce o naše služby prosíme o telefonickou
+      objednávku předem.
+    </p>
+  </div>
+
+  <div class="contact-grid">
+    <!-- LEFT -->
+    <div class="contact-left">
+
+      <div class="info-card">
+        <div class="info-ic">
+          <!-- pin -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z"/>
+            <circle cx="12" cy="10" r="2.5"/>
+          </svg>
+        </div>
+        <div class="info-txt">
+          <h3>Adresa provozovny</h3>
+          <p>Srbská 53<br>Brno – Brno-Královo Pole, 612 00</p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-ic">
+          <!-- clock -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="8"/>
+            <path d="M12 8v5l3 2"/>
+          </svg>
+        </div>
+        <div class="info-txt">
+          <h3>Otevírací doba</h3>
+          <div class="hours">
+            <div class="hours-row"><span>Pondělí – Čtvrtek</span><b>8:00 – 18:00</b></div>
+            <div class="hours-row"><span>Pátek</span><b>8:00 – 17:00</b></div>
+            <div class="hours-row"><span>Sobota – Neděle</span><b>Zavřeno</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-ic">
+          <!-- user -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="3"/>
+            <path d="M5 20c1.8-4 11.2-4 14 0"/>
+          </svg>
+        </div>
+        <div class="info-txt">
+          <h3>Ing. Marcela Opatřilová</h3>
+          <p class="muted">Manikúra, modeláž nehtů</p>
+          <p class="phone"><a href="tel:724571374">724 571 374 (i SMS)</a></p>
+          <p class="small">IČ: 03022307 · Sídlo: Žilkova 42a, Brno 621 00</p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-ic">
+          <!-- user -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="3"/>
+            <path d="M5 20c1.8-4 11.2-4 14 0"/>
+          </svg>
+        </div>
+        <div class="info-txt">
+          <h3>Lenka Miffková</h3>
+          <p class="muted">Masáže, kosmetika, pedikúra</p>
+          <p class="phone"><a href="tel:603269479">603 269 479 (i SMS)</a></p>
+          <p class="small">IČ: 60524367</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="contact-map">
+      <div class="map-box">
+        <iframe
+          src="https://www.google.com/maps?q=Srbsk%C3%A1%2053%20Brno%20Kr%C3%A1lovo%20Pole&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- FOOTER                                                -->
+<!-- ===================================================== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <div class="footer-col">
+        <h3>Studio Chilli</h3>
+        <p class="footer-text">
+          Zahřeje. Povzbudí. Rozzáří. Pohladí.
+          Malé studio s velkým důrazem na osobní přístup, kvalitu a pohodu.
+        </p>
+
+        <div class="footer-social">
+          <a class="social-btn" href="https://www.facebook.com/www.studiochilli.cz/?ref=embed_page#" aria-label="Facebook">
+            <!-- f -->
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V5h-3c-2 0-4 2-4 4v3H7v3h3v7h3v-7h3l1-3h-4V9c0-.6.4-1 1-1z"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.instagram.com/studio_chilli/" aria-label="Instagram">
+            <!-- ig -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z"/>
+              <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+              <path d="M17.5 6.5h.01"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Rychlé odkazy</h3>
+        <ul class="footer-links">
+          <li><a href="#top">Domů</a></li>
+          <li><a href="#sluzby">Naše služby</a></li>
+          <li><a href="#onas">O nás</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#recenze">Recenze</a></li>
+          <li><a href="tel:724571374">Objednat se</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Kontakt</h3>
+        <ul class="footer-contact">
+          <li>
+            <span class="ic">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </span>
+            <span>Srbská 53, Brno – Královo Pole, 612 00</span>
+          </li>
+          <li>
+            <span class="ic">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2c-9.4-.9-16.8-8.3-17.7-17.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.6 2.7a2 2 0 0 1-.6 1.9l-1.5 1.5a14.5 14.5 0 0 0 6.6 6.6l1.5-1.5a2 2 0 0 1 1.9-.6l2.7.6a2 2 0 0 1 1.7 2z"/></svg>
+            </span>
+            <a href="tel:724571374">+420 724 571 374</a>
+          </li>
+          <li>
+            <span class="ic">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+            </span>
+            <a href="mailto:studiochilli@email.cz">studiochilli@email.cz</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Otevírací doba</h3>
+        <div class="footer-hours">
+          <div class="hr"><span>Pondělí – Čtvrtek</span><b>8:00 – 18:00</b></div>
+          <div class="hr"><span>Pátek</span><b>8:00 – 17:00</b></div>
+          <div class="hr"><span>Sobota – Neděle</span><b>Zavřeno</b></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p>Vytvořil Petr Brož · www.broz-petr.cz</p>
+      <p>© 2026 Studio Chilli. Všechna práva vyhrazena.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll + offset pro fixed header
+  (function () {
+    const header = document.querySelector("header");
+
+    function scrollToId(id) {
+      const el = document.querySelector(id);
+      if (!el) return;
+
+      const headerH = header ? header.offsetHeight : 0;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - headerH - 12;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+
+      const href = a.getAttribute("href");
+      if (!href || href === "#") return;
+
+      e.preventDefault();
+      scrollToId(href);
+    });
+  })();
+</script>
+
+<script>
+/* ===================================================== */
+/* GALERIE: tabs + render + lightbox                       */
+/* ===================================================== */
+
+const GALLERY = {
+  nehty: [
+    // //* SEM PAK DÁŠ VLASTNÍ FOTKY (např. "images/nehty1.jpg")
+    { src: "ruka1.jpeg", label: "Nehty" },
+    { src: "ruka2.jpeg", label: "Nehty" },
+    { src: "ruka3.jpeg", label: "Nehty" },
+    { src: "ruka4.jpeg", label: "Nehty" },
+    { src: "ruka5.jpeg", label: "Nehty" },
+    { src: "ruka6.jpeg", label: "Nehty" },
+  ],
+  pedikura: [
+    { src: "noha1.jpeg", label: "Pedikúra" },
+    { src: "noha2.jpeg", label: "Pedikúra" },
+    { src: "noha3.jpeg", label: "Pedikúra" },
+  ],
+  kosmetika: [
+    { src: "kosmetika1.jpeg", label: "Kosmetika" },
+    { src: "kosmetika2.jpeg", label: "Kosmetika" },
+    { src: "kosmetika3.jpeg", label: "Kosmetika" },
+    { src: "kosmetika4.jpeg", label: "Kosmetika" },
+],
+  masaze: [
+    { src: "masaz1.jpeg", label: "Masáže" },
+    { src: "masaz2.jpeg", label: "Masáže" },
+    { src: "masaz3.jpeg", label: "Masáže" },
+    
+  ],
+  epilace: [
+    { src: "epilace1.jpeg", label: "Epilace" },
+    { src: "epilace2.jpeg", label: "Epilace" },
+    { src: "epilace3.jpeg", label: "Epilace" },
+    { src: "epilace4.jpeg", label: "Epilace" },
+  ]
+};
+
+const grid = document.getElementById("galleryGrid");
+const tabs = Array.from(document.querySelectorAll(".gallery-tabs .tab"));
+
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lightboxImg");
+const lbPrev = document.getElementById("lbPrev");
+const lbNext = document.getElementById("lbNext");
+
+let currentKey = "nehty";
+let currentIndex = 0;
+
+function renderGallery(key){
+  currentKey = key;
+  const items = GALLERY[key] || [];
+  grid.innerHTML = items.map((it, i) => `
+    <div class="g-item" data-i="${i}" role="button" aria-label="Otevřít fotku">
+      <img src="${it.src}" alt="${it.label}" loading="lazy">
+      <div class="g-overlay"><span class="g-badge">${it.label}</span></div>
+    </div>
+  `).join("");
+}
+
+function setActiveTab(key){
+  tabs.forEach(b=>{
+    const active = b.dataset.tab === key;
+    b.classList.toggle("is-active", active);
+    b.setAttribute("aria-selected", active ? "true" : "false");
+  });
+}
+
+function openLightbox(index){
+  const items = GALLERY[currentKey] || [];
+  if(!items[index]) return;
+  currentIndex = index;
+  lbImg.src = items[index].src;
+  lb.classList.add("open");
+  lb.setAttribute("aria-hidden","false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox(){
+  lb.classList.remove("open");
+  lb.setAttribute("aria-hidden","true");
+  document.body.style.overflow = "";
+}
+
+function prev(){
+  const items = GALLERY[currentKey] || [];
+  currentIndex = (currentIndex - 1 + items.length) % items.length;
+  lbImg.src = items[currentIndex].src;
+}
+
+function next(){
+  const items = GALLERY[currentKey] || [];
+  currentIndex = (currentIndex + 1) % items.length;
+  lbImg.src = items[currentIndex].src;
+}
+
+// tabs click
+tabs.forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const key = btn.dataset.tab;
+    setActiveTab(key);
+    renderGallery(key);
+  });
+});
+
+// grid click -> lightbox
+grid.addEventListener("click", (e)=>{
+  const tile = e.target.closest(".g-item");
+  if(!tile) return;
+  openLightbox(Number(tile.dataset.i));
+});
+
+// lightbox close
+lb.addEventListener("click", (e)=>{
+  if(e.target.matches("[data-close]")) closeLightbox();
+});
+lbPrev.addEventListener("click", prev);
+lbNext.addEventListener("click", next);
+
+// keyboard
+document.addEventListener("keydown", (e)=>{
+  if(!lb.classList.contains("open")) return;
+  if(e.key === "Escape") closeLightbox();
+  if(e.key === "ArrowLeft") prev();
+  if(e.key === "ArrowRight") next();
+});
+
+// init
+setActiveTab("nehty");
+renderGallery("nehty");
+</script>
+
+</body>
+</html>
