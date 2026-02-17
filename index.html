@@ -1069,6 +1069,88 @@ section:not(:last-of-type)::after {
   height: 1px;
   background: rgba(0,0,0,0.06);
 }
+
+/* ================= MOBILE MENU ================= */
+
+.nav-toggle{
+  display:none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.7);
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+}
+
+.nav-toggle span{
+  display:block;
+  height:2px;
+  width:100%;
+  background:#000;
+  margin:4px 0;
+  transition:.3s ease;
+}
+
+.nav-backdrop{
+  display:none;
+}
+
+@media (max-width: 780px){
+
+  .nav-toggle{
+    display:flex;
+  }
+
+  .site-nav{
+    position:fixed;
+    top:0;
+    right:0;
+    width:85%;
+    max-width:320px;
+    height:100vh;
+    background:#fff;
+    flex-direction:column;
+    padding:80px 25px;
+    gap:20px;
+    transform:translateX(100%);
+    transition:.3s ease;
+    z-index:2000;
+  }
+
+  body.nav-open .site-nav{
+    transform:translateX(0);
+  }
+
+  .nav-backdrop{
+    display:block;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:1500;
+  }
+
+  body.nav-open .nav-backdrop{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  /* Burger animace */
+  body.nav-open .nav-toggle span:nth-child(1){
+    transform:rotate(45deg) translateY(8px);
+  }
+  body.nav-open .nav-toggle span:nth-child(2){
+    opacity:0;
+  }
+  body.nav-open .nav-toggle span:nth-child(3){
+    transform:rotate(-45deg) translateY(-8px);
+  }
+}
     </style>
 </head>
 <body>
@@ -1076,13 +1158,22 @@ section:not(:last-of-type)::after {
 
    <!-- Header / Navigace -->
 <header>
-  <div class="logo">
-  <a href="#top">
-    <img src="LOGO_studioCHILLI2.png" alt="Studio Chilli logo">
-  </a>
-</div>
 
-  <nav>
+  <div class="logo">
+    <a href="#top">
+      <img src="LOGO_studioCHILLI2.png" alt="Studio Chilli logo">
+    </a>
+  </div>
+
+  <!-- Hamburger tlačítko -->
+  <button class="nav-toggle" id="navToggle" type="button">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- Navigace -->
+  <nav class="site-nav" id="siteNav">
     <a href="#top">Domů</a>
     <a href="#sluzby">Služby</a>
     <a href="#onas">O nás</a>
@@ -1091,7 +1182,11 @@ section:not(:last-of-type)::after {
     <a href="#kontakt">Kontakt</a>
   </nav>
 
+  <!-- Backdrop -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
   <a href="tel:724571374" class="btn-main">Objednat se</a>
+
 </header>
 
 
@@ -1719,6 +1814,25 @@ document.addEventListener("keydown", (e)=>{
 // init
 setActiveTab("nehty");
 renderGallery("nehty");
+</script>
+<script>
+const toggle = document.getElementById("navToggle");
+const nav = document.getElementById("siteNav");
+const backdrop = document.getElementById("navBackdrop");
+
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("nav-open");
+});
+
+backdrop.addEventListener("click", () => {
+  document.body.classList.remove("nav-open");
+});
+
+nav.addEventListener("click", e => {
+  if(e.target.tagName === "A"){
+    document.body.classList.remove("nav-open");
+  }
+});
 </script>
 
 </body>
