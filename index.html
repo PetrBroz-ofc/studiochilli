@@ -1070,87 +1070,120 @@ section:not(:last-of-type)::after {
   background: rgba(0,0,0,0.06);
 }
 
-/* ================= MOBILE MENU ================= */
+/* ===== Desktop: UL v řadě ===== */
+nav ul{
+  display:flex;
+  list-style:none;
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
 
-.nav-toggle{
+/* odkazy uvnitř li */
+nav ul li a{
+  position: relative;
+  font-size: 14px;
+  color: rgba(0,0,0,0.65);
+  font-weight: 500;
+  padding: 6px 0;
+  text-decoration:none;
+}
+
+/* burger button default hidden */
+.mobile-menu-btn{
   display:none;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
   border: 1px solid rgba(0,0,0,.08);
-  background: rgba(255,255,255,.7);
-  cursor:pointer;
-  align-items:center;
-  justify-content:center;
-  padding:10px;
+  background: rgba(255,255,255,.65);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
 }
 
-.nav-toggle span{
+.mobile-menu-btn span{
   display:block;
-  height:2px;
-  width:100%;
-  background:#000;
-  margin:4px 0;
-  transition:.3s ease;
+  width: 100%;
+  height: 2px;
+  background: rgba(0,0,0,.75);
+  border-radius: 999px;
+  transition: .25s ease;
 }
 
-.nav-backdrop{
-  display:none;
-}
-
+/* ===== Mobil: rozbalovací menu dolů (Kamila styl) ===== */
 @media (max-width: 780px){
 
-  .nav-toggle{
-    display:flex;
+  /* burger zobrazit */
+  .mobile-menu-btn{ display:flex; }
+
+  /* schovej desktop hover underline animaci v mobilním dropdownu (optional) */
+  nav a::after{ display:none; }
+
+  /* menu jako panel pod headerem */
+  nav ul{
+    position: fixed;
+    top: 74px;           /* uprav podle výšky headeru */
+    left: 6%;
+    right: 6%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(253,248,245,0.98);
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 16px 50px rgba(0,0,0,.12);
+    border-radius: 18px;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: .25s ease;
+    z-index: 2000;
   }
 
-  .site-nav{
-    position:fixed;
-    top:0;
-    right:0;
-    width:85%;
-    max-width:320px;
-    height:100vh;
-    background:#fff;
-    flex-direction:column;
-    padding:80px 25px;
-    gap:20px;
-    transform:translateX(100%);
-    transition:.3s ease;
-    z-index:2000;
+  /* otevřeno */
+  nav ul.active{
+    padding: 12px;
+    max-height: 60vh;
+    overflow-y: auto;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 
-  body.nav-open .site-nav{
-    transform:translateX(0);
+  nav ul li{
+    width:100%;
   }
 
-  .nav-backdrop{
+  nav ul li a{
     display:block;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.4);
-    opacity:0;
-    pointer-events:none;
-    transition:.3s;
-    z-index:1500;
+    padding: 12px 12px;
+    border-radius: 12px;
+    font-size: 15px;
   }
 
-  body.nav-open .nav-backdrop{
-    opacity:1;
-    pointer-events:auto;
+  nav ul li a:hover{
+    background: rgba(230,126,95,.12);
   }
 
-  /* Burger animace */
-  body.nav-open .nav-toggle span:nth-child(1){
-    transform:rotate(45deg) translateY(8px);
+  /* burger animace na X */
+  .mobile-menu-btn.active span:nth-child(1){
+    transform: translateY(8px) rotate(45deg);
   }
-  body.nav-open .nav-toggle span:nth-child(2){
-    opacity:0;
+  .mobile-menu-btn.active span:nth-child(2){
+    opacity: 0;
   }
-  body.nav-open .nav-toggle span:nth-child(3){
-    transform:rotate(-45deg) translateY(-8px);
+  .mobile-menu-btn.active span:nth-child(3){
+    transform: translateY(-8px) rotate(-45deg);
   }
 }
+
     </style>
 </head>
 <body>
@@ -1158,37 +1191,30 @@ section:not(:last-of-type)::after {
 
    <!-- Header / Navigace -->
 <header>
-
   <div class="logo">
     <a href="#top">
       <img src="LOGO_studioCHILLI2.png" alt="Studio Chilli logo">
     </a>
   </div>
 
-  <!-- Hamburger tlačítko -->
-  <button class="nav-toggle" id="navToggle" type="button">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-
-  <!-- Navigace -->
-  <nav class="site-nav" id="siteNav">
-    <a href="#top">Domů</a>
-    <a href="#sluzby">Služby</a>
-    <a href="#onas">O nás</a>
-    <a href="#galerie">Galerie</a>
-    <a href="#recenze">Recenze</a>
-    <a href="#kontakt">Kontakt</a>
+  <nav>
+    <ul id="nav-menu">
+      <li><a href="#top">Domů</a></li>
+      <li><a href="#sluzby">Služby</a></li>
+      <li><a href="#onas">O nás</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#recenze">Recenze</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
   </nav>
 
-  <!-- Backdrop -->
-  <div class="nav-backdrop" id="navBackdrop"></div>
+  <!-- Mobile burger -->
+  <button class="mobile-menu-btn" id="mobile-menu-toggle" type="button" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 
   <a href="tel:724571374" class="btn-main">Objednat se</a>
-
 </header>
-
 
     <!-- ===================================================== -->
 <!-- 1. HERO SEKCE                                        -->
@@ -1815,24 +1841,50 @@ document.addEventListener("keydown", (e)=>{
 setActiveTab("nehty");
 renderGallery("nehty");
 </script>
+
 <script>
-const toggle = document.getElementById("navToggle");
-const nav = document.getElementById("siteNav");
-const backdrop = document.getElementById("navBackdrop");
+  // Mobile Menu Toggle (Kamila-style)
+  document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+    const menu = document.getElementById('nav-menu');
+    const button = this;
 
-toggle.addEventListener("click", () => {
-  document.body.classList.toggle("nav-open");
-});
+    const isActive = menu.classList.contains('active');
 
-backdrop.addEventListener("click", () => {
-  document.body.classList.remove("nav-open");
-});
+    if (isActive) {
+      menu.classList.remove('active');
+      button.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    } else {
+      menu.classList.add('active');
+      button.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
-nav.addEventListener("click", e => {
-  if(e.target.tagName === "A"){
-    document.body.classList.remove("nav-open");
-  }
-});
+    // (optional) stagger index, když chceš animovat položky později
+    const items = menu.querySelectorAll('li');
+    items.forEach((item, i) => item.style.setProperty('--i', i));
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', function(event) {
+    const menu = document.getElementById('nav-menu');
+    const button = document.getElementById('mobile-menu-toggle');
+
+    if (!menu.contains(event.target) && !button.contains(event.target) && menu.classList.contains('active')) {
+      menu.classList.remove('active');
+      button.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+
+  // Close after clicking a link
+  document.getElementById('nav-menu').addEventListener('click', function(e){
+    const a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    this.classList.remove('active');
+    document.getElementById('mobile-menu-toggle').classList.remove('active');
+    document.body.style.overflow = 'auto';
+  });
 </script>
 
 </body>
