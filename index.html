@@ -547,6 +547,55 @@ nav a:hover::after {
   .g-col-3, .g-col-4, .g-col-6, .g-col-8{ grid-column: span 12; height: 260px; }
 }
 
+/* ===================================================== */
+/* FACEBOOK SEKCE                                        */
+/* ===================================================== */
+.fb-section {
+  padding: 110px 8%;
+  background: #fff7f3;
+  text-align: center;
+}
+
+.fb-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.fb-head {
+  max-width: 760px;
+  margin: 0 auto 50px;
+}
+
+.fb-head h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(38px, 4.5vw, 62px);
+  line-height: 1.05;
+  margin: 18px 0 16px;
+}
+
+.fb-lead {
+  color: rgba(0,0,0,.55);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.fb-widget-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.fb-widget-wrap .fb-page {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,.08);
+}
+
+@media (max-width: 600px) {
+  .fb-section { padding: 90px 5%; }
+  .fb-widget-wrap .fb-page { width: 100% !important; }
+}
+
 /* Lightbox */
 .lightbox{
   position: fixed;
@@ -621,85 +670,6 @@ nav a:hover::after {
 /* 4. RECENZE                                             */
 /* ===================================================== */
 
-.reviews{
-  padding: 120px 8%;
-  background: #f6f1ee;
-  text-align:center;
-}
-
-.reviews-head{
-  max-width: 900px;
-  margin: 0 auto 70px;
-}
-
-.reviews h2{
-  font-family: Georgia, serif;
-  font-size: clamp(40px, 5vw, 70px);
-  line-height: 1.05;
-  margin: 18px 0 18px;
-}
-
-.reviews-stars{
-  color: var(--accent);
-  font-size: 26px;
-  letter-spacing: 6px;
-  margin-bottom: 12px;
-}
-
-.reviews-sub{
-  color: rgba(0,0,0,.55);
-  font-size: 15px;
-}
-
-.reviews-grid{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.review-card{
-  background: rgba(255,255,255,.55);
-  border: 1px solid rgba(0,0,0,.05);
-  border-radius: 28px;
-  padding: 36px 32px;
-  text-align:left;
-  box-shadow: 0 18px 40px rgba(0,0,0,.06);
-  transition: transform .18s ease, box-shadow .18s ease;
-}
-
-.review-card:hover{
-  transform: translateY(-5px);
-  box-shadow: 0 26px 60px rgba(0,0,0,.10);
-}
-
-.review-stars{
-  color: var(--accent);
-  font-size: 18px;
-  margin-bottom: 18px;
-}
-
-.review-text{
-  font-size: 16px;
-  line-height: 1.8;
-  color: rgba(0,0,0,.75);
-  margin-bottom: 26px;
-}
-
-.review-author{
-  font-weight: 600;
-  font-size: 14px;
-  color: rgba(0,0,0,.65);
-}
-
-@media (max-width: 980px){
-  .reviews-grid{ grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 640px){
-  .reviews{ padding: 100px 7%; }
-  .reviews-grid{ grid-template-columns: 1fr; }
-}
 
 /* ===================================================== */
 /* 5. KONTAKT                                             */
@@ -1203,7 +1173,7 @@ nav ul li a{
 <header>
   <div class="logo">
     <a href="#top">
-      <img src="LOGO_studioCHILLI2.png" alt="Studio Chilli logo">
+      <img src="logo-removebg-preview.png" alt="Studio Chilli logo">
     </a>
   </div>
 
@@ -1462,52 +1432,42 @@ nav ul li a{
   </div>
 </section>
 
+<!-- ===================================================== -->
+<!-- FACEBOOK                                              -->
+<!-- ===================================================== -->
+<section class="fb-section">
+  <div class="fb-inner">
+    <div class="fb-head">
+      <p class="section-kicker">SLEDUJTE NÁS</p>
+      <h2>Jsme i na Facebooku</h2>
+      <p class="fb-lead">Sledujte novinky, akce a inspiraci přímo na našem facebookovém profilu.</p>
+    </div>
+    <div class="fb-widget-wrap">
+      <div id="fb-root"></div>
+      <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v19.0"
+        nonce="studiochilli">
+      </script>
+      <div class="fb-page"
+        data-href="https://www.facebook.com/www.studiochilli.cz"
+        data-tabs="timeline"
+        data-width="500"
+        data-height="600"
+        data-small-header="false"
+        data-adapt-container-width="true"
+        data-hide-cover="false"
+        data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/www.studiochilli.cz" class="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/www.studiochilli.cz">Studio Chilli</a>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
     <!-- ===================================================== -->
 <!-- 4. RECENZE                                            -->
 <!-- ===================================================== -->
-<section id="recenze" class="reviews">
-  <div class="reviews-head">
-    <p class="section-kicker">RECENZE</p>
-    <h2>Co říkají naši zákazníci</h2>
-
-    <div class="reviews-stars">
-      ★ ★ ★ ★ ★
-    </div>
-
-    <p class="reviews-sub">
-      Spokojení zákazníci a jejich úsměv jsou naší největší odměnou
-    </p>
-  </div>
-
-  <div class="reviews-grid">
-    <article class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">
-        „Skvělá práce, vždy odcházím spokojená. Nehty vydrží dlouho
-        a prostředí je příjemné a klidné.“
-      </p>
-      <p class="review-author">Petra K.</p>
-    </article>
-
-    <article class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">
-        „Profesionální přístup a precizní provedení.
-        Studio Chilli je moje jednička v Brně!“
-      </p>
-      <p class="review-author">Jana M.</p>
-    </article>
-
-    <article class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">
-        „Konečně jsem našla studio, kde se cítím jako doma.
-        Osobní přístup a krásné výsledky pokaždé.“
-      </p>
-      <p class="review-author">Lucie V.</p>
-    </article>
-  </div>
-</section>
 
 
   <!-- ===================================================== -->
@@ -1669,7 +1629,7 @@ nav ul li a{
             <span class="ic">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
             </span>
-            <a href="mailto:studiochilli@email.cz">studiochilli@email.cz</a>
+            <a href="/cdn-cgi/l/email-protection#a2d1d6d7c6cbcdc1cacbcececbe2c7cfc3cbce8cc1d8"><span class="__cf_email__" data-cfemail="f182858495989e9299989d9d98b1949c90989ddf928b">[email&#160;protected]</span></a>
           </li>
         </ul>
       </div>
@@ -1694,7 +1654,7 @@ nav ul li a{
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Smooth scroll + offset pro fixed header
   (function () {
     const header = document.querySelector("header");
@@ -1891,6 +1851,7 @@ renderGallery("nehty");
     }
   });
 
+  
   // Close after clicking a link
   document.getElementById('nav-menu').addEventListener('click', function(e){
     const a = e.target.closest('a[href^="#"]');
