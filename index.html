@@ -557,13 +557,13 @@ nav a:hover::after {
 }
 
 .fb-inner {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .fb-head {
   max-width: 760px;
-  margin: 0 auto 50px;
+  margin: 0 auto 44px;
 }
 
 .fb-head h2 {
@@ -579,22 +579,24 @@ nav a:hover::after {
   line-height: 1.85;
 }
 
-.fb-widget-wrap {
+.fb-embed-wrap {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  width: 100%;
 }
 
-.fb-widget-wrap .fb-page {
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,.08);
+/* Přepisujeme inline styly které FB SDK vkládá */
+.fb-embed-wrap .fb-page,
+.fb-embed-wrap .fb-page span,
+.fb-embed-wrap .fb-page iframe {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
-@media (max-width: 600px) {
-  .fb-section { padding: 90px 5%; }
-  .fb-widget-wrap .fb-page { width: 100% !important; }
+@media (max-width: 700px) {
+  .fb-section { padding: 90px 4%; }
 }
+
 
 /* Lightbox */
 .lightbox{
@@ -1183,6 +1185,7 @@ nav ul li a{
       <li><a href="#sluzby">Služby</a></li>
       <li><a href="#onas">O nás</a></li>
       <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#facebook">Facebook</a></li>
       <li><a href="#recenze">Recenze</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
 
@@ -1435,24 +1438,24 @@ nav ul li a{
 <!-- ===================================================== -->
 <!-- FACEBOOK                                              -->
 <!-- ===================================================== -->
-<section class="fb-section">
+<section id="facebook" class="fb-section">
   <div class="fb-inner">
     <div class="fb-head">
       <p class="section-kicker">SLEDUJTE NÁS</p>
       <h2>Jsme i na Facebooku</h2>
       <p class="fb-lead">Sledujte novinky, akce a inspiraci přímo na našem facebookovém profilu.</p>
     </div>
-    <div class="fb-widget-wrap">
+
+    <div class="fb-embed-wrap">
       <div id="fb-root"></div>
       <script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v19.0"
-        nonce="studiochilli">
+        src="https://connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v19.0">
       </script>
       <div class="fb-page"
         data-href="https://www.facebook.com/www.studiochilli.cz"
         data-tabs="timeline"
-        data-width="500"
-        data-height="600"
+        data-width="1000"
+        data-height="700"
         data-small-header="false"
         data-adapt-container-width="true"
         data-hide-cover="false"
@@ -1462,6 +1465,7 @@ nav ul li a{
         </blockquote>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1817,6 +1821,19 @@ renderGallery("nehty");
 </script>
 
 <script>
+  // Mobile Menu Toggle (Kamila-style)
+  window.fbAsyncInit = function() {
+    FB.init({ xfbml: true, version: 'v19.0' });
+    // Po inicializaci nastav šířku podle kontejneru
+    const wrap = document.querySelector('.fb-embed-wrap');
+    const page = document.querySelector('.fb-page');
+    if (wrap && page) {
+      const w = Math.min(wrap.offsetWidth, 1000);
+      page.setAttribute('data-width', w);
+      FB.XFBML.parse();
+    }
+  };
+
   // Mobile Menu Toggle (Kamila-style)
   document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
     const menu = document.getElementById('nav-menu');
